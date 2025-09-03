@@ -15,25 +15,26 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
   // Inisialisasi peta
-  var map = L.map('map').setView([-0.8991, 119.8707], 13);
+var map = L.map('map').setView([-0.8991, 119.8707], 13);
 
-  // Tambahkan layer dari OpenStreetMap
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+// Tambahkan layer dari OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
 
-  // Tambahkan marker lokasi gereja
-  L.marker([-0.90830, 119.88187]).addTo(map)
-    .bindPopup("GSJA Kalvari Palu")
-    .openPopup();
+// Data gereja (bisa ditambah lagi)
+var churches = [
+  {name: "GSJA Kalvari Palu", lat: -0.8991, lng: 119.8707},
+  {name: "Gereja Katolik Santa Maria", lat: -0.9002, lng: 119.8715},
+  {name: "Gereja Immanuel", lat: -0.9050, lng: 119.8725}
+];
 
-  L.marker([-0.88980, 119.86783]).addTo(map)
-    .bindPopup("GMS Palu")
-    .openPopup();
-
-  L.marker([-0.89981, 119.87082]).addTo(map)
-    .bindPopup("Bethany Palu")
-    .openPopup();
+// Tambahkan marker dari data
+churches.forEach(function(church) {
+  L.marker([church.lat, church.lng])
+    .addTo(map)
+    .bindPopup(church.name);
+});
 </script>
 
 </body>
