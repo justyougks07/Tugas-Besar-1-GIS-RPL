@@ -1,0 +1,12 @@
+.navbar {
+    background-color: white;
+}
+
+.nav-list {
+    background-color: yellow;
+}
+
+.nav-item {
+    border: 1px solid black;
+    list-style-type: none;
+}
