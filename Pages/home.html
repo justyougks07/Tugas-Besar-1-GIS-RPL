@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>belajar lagi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="Style.css" />
+    <link rel="icon" href="image/images.jpg" type="image/png">
+    <link rel="stylesheet" href="styling navbar/navbar.css" />
+    <link rel="stylesheet" href="styling content/content.css" />
+    <!-- <link rel="stylesheet" href="styling footer/footer.css" /> -->
+  </head>
+  <body>
+    <div class="container-content-1">
+      <a href="https://youtube.com/deaafrizal" class="a-gambar-1">
+        <p>TES MAMPIR KE YOUTUBE CHANNEL BARU</p>
+        <img src="image/Foto profil.jpg" class="gambar-1" />
+      </a>
+    </div>
+    <!-- <div class="container-footer">
+      <h1 class="header1">Gabriel Yosafat</h1>
+      <p>Copyright 2024</p>
+    </div> -->
+    <script>
+      // mark current nav item active
+      (function(){
+        const path = location.pathname.split('/').pop() || 'index.html';
+        const links = document.querySelectorAll('.nav-list .a-navbar');
+        links.forEach(a => {
+          const href = a.getAttribute('href');
+          if ((href === '#' && path === 'index.html') || href === path) {
+            a.parentElement.classList.add('active');
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

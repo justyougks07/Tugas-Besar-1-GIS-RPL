@@ -22,3 +22,13 @@
   width: 50%;
   height: auto;
 }
+
+/* agar div map punya tinggi terlihat */
+.map {
+  width: 90%;
+  height: 70vh; /* sesuaikan jika mau lebih tinggi */
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.06) inset;
+}
+

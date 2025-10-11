@@ -1,35 +1,34 @@
-<html>
+<!DOCTYPE html>
+<html lang="id">
   <head>
-    <title>belajar lagi</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Informasi Gereja</title>
+
+    <link rel="icon" href="image/images.jpg" type="image/png" />
     <link rel="stylesheet" href="Style.css" />
-    <link rel="icon" href="image/images.jpg" type="image/png">
-  </head>
-  <body>
     <link rel="stylesheet" href="styling navbar/navbar.css" />
     <link rel="stylesheet" href="styling content/content.css" />
-    <link rel="stylesheet" href="styling footer/footer.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
     <div class="navbar">
+      <span class="highlight"></span>
       <ul class="nav-list">
-        <li class="nav-item">
-          <a href="#" class="a-navbar">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="about.html" class="a-navbar">About Me</a>
-        </li>
-        <li class="nav-item">
-          <a href="contact.html" class="a-navbar">Contact Me</a>
-        </li>
+        <li class="nav-item"><a href="#home" class="a-navbar">Home</a></li>
+        <li class="nav-item"><a href="#map" class="a-navbar">Map</a></li>
+        <li class="nav-item"><a href="#about" class="a-navbar">About Me</a></li>
       </ul>
     </div>
-    <div class="container-content-1">
-      <a href="https://youtube.com/deaafrizal" class="a-gambar-1">
-        <img src="image/Foto profil.jpg" class="gambar-1" />
-        <p>TES MAMPIR KE YOUTUBE CHANNEL BARU</p>
-      </a>
-    </div>
-    <div class="container-footer">
-      <h1 class="header1">Gabriel Yosafat</h1>
-      <p>Copyright 2024</p>
-    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+
+    <!-- KONTEN AKAN DIMUAT DI SINI -->
+    <div id="content"></div>
+
+    <script src="script.js"></script>
   </body>
 </html>

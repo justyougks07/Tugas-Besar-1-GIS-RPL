@@ -1,34 +1,151 @@
 .navbar {
-  background-color: rgb(0, 0, 0);
-  width: 100%;
+  /* slightly more opaque background so content behind is less visible */
+  background: rgba(20, 20, 30, 0.92);
+  /* responsive width: mostly a percentage but constrained by a max width */
+  width: 40%;
+  max-width: 900px;
   height: 10vh;
 
   display: flex;
+  border-radius: 50px;
+  /* soften the shadow and reduce blur for a subtler frosted look */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
   justify-content: center;
   align-items: center;
+  margin: 1.5rem auto 0; /* move down from the very top and center */
+  padding: 0.4rem 1rem; /* small internal spacing for smaller screens */
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 .nav-list {
   display: flex;
-  height: 100px;
   align-items: center;
+  height: auto;
+  width: auto; /* let the list size to its content so it can be centered */
+  list-style: none; /* remove bullets */
+  margin: 0;
+  padding: 0;
+  gap: 0.75rem; /* spacing between items */
+  justify-content: center; /* center the list inside the navbar on larger screens */
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+  /* keep the same visual shape as desktop but make it usable on small screens */
+  .navbar {
+    width: 75%;
+    max-width: 900px;
+    height: 50px; /* match desktop height */
+    border-radius: 50px; /* keep the same rounded shape */
+    padding: 0.3rem 0.6rem;
+    box-sizing: border-box;
+  }
+
+  /* keep items in a row and allow horizontal scrolling when space is limited */
+  .nav-list {
+    flex-direction: row;
+    gap: 0.35rem;
+    align-items: center;
+    overflow-x: hidden;
+    flex-wrap: nowrap; /* keep in one row */
+    -webkit-overflow-scrolling: auto;
+    white-space: nowrap;
+    padding-bottom: 0;
+    justify-content: center;
+  }
+
+  /* make each nav item compact but still pill-shaped */
+  .nav-item {
+    padding: 0; /* padding moved into the anchor so the whole pill is clickable */;
+    border-radius: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  
+  /* hide the sliding highlight on small screens to avoid sliding behavior */
+  .highlight { display: none; }
+  
+  /* reduce anchor padding and font-size so items are similar to desktop but compact */
+  .nav-item > .a-navbar {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.92rem;
+  }
+
+  /* optional: hide native scrollbar visuals on modern browsers for cleaner look */
+  .nav-list::-webkit-scrollbar {
+    height: 6px;
+  }
+  .nav-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.12);
+    border-radius: 6px;
+  }
+  .nav-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.12) transparent;
+  }
 }
 
 .nav-item {
-  padding: 12px;
-  margin: 5px;
-  list-style-type: none;
   color: white;
-  background-color: rgb(255, 255, 255);
-  border-radius: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  /* remove padding from li and let the anchor fill the area */
+  padding: 0;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* active/current page styling */
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.14);
+}
+.nav-item.active > .a-navbar {
+  color: #fff;
+  font-weight: 600;
 }
 
 .a-navbar {
   text-decoration: none;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
-.a-navbar:hover {
-  color: blue;
-  transition: 0.2s ease-in-out;
+/* make the anchor fill the nav-item so the entire pill is clickable */
+.nav-item > .a-navbar {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  color: inherit;
+  text-decoration: none;
 }
+
+/* Highlight background untuk animasi */
+.highlight {
+  position: absolute;
+  height: 40px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.navbar {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item {
+  position: relative;
+  z-index: 1;
+}
+
+
+
