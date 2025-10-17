@@ -4,24 +4,136 @@
     <title>ABOUT ME</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="Style.css" />
-    <link rel="icon" href="image/images.jpg" type="image/png">
-    <link rel="stylesheet" href="styling navbar/navbar.css" />
-    <link rel="stylesheet" href="styling content/content.css" />
+  <link rel="stylesheet" href="../Style.css" />
+  <link rel="icon" href="../image/Group 3.png" type="image/png">
+  <link rel="stylesheet" href="../styling navbar/navbar.css" />
+  <link rel="stylesheet" href="../styling content/content.css" />
+  <link rel="stylesheet" href="../styling content/contentabout.css" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1Cm7X1Kq6V0V1W8rVJk8y3z6ZQ1qz2v1p4G3zQKq6Z0Q1P2K7c3u9s4V5b8e9H3v6K1J2L3M4N5O6P7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Inline styles specific to about.html new sections */
+    .stats { display: flex; gap: 1rem; margin: 1.6rem 0; flex-wrap: wrap; }
+    .stat-card { flex: 1 1 180px; background: #ffffff; padding: 1rem; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 0.8rem; }
+    .stat-icon { font-size: 1.6rem; background: rgba(0,0,0,0.05); padding: 0.6rem; border-radius: 8px; display:flex; align-items:center; justify-content:center; width:44px; height:44px; }
+    .stat-info { font-weight:600; }
+    .stat-label { font-size:0.85rem; color:#666; font-weight:400; }
+
+    .regions { margin: 1.6rem 0; background:#fff; padding:1rem; border-radius:10px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+    .regions h3 { margin-top:0; }
+    .regions table { width:100%; border-collapse: collapse; }
+    .regions td, .regions th { padding: 0.6rem 0.4rem; border-bottom: 1px solid #f0f0f0; text-align:left; }
+    .regions tr:last-child td { border-bottom: none; }
+
+    .social { margin-top: 1.6rem; display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; }
+    .social a { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background:#fff; box-shadow: 0 4px 12px rgba(0,0,0,0.06); color:#333; text-decoration:none; }
+    .social a:hover { transform: translateY(-3px); }
+
+    @media (max-width: 760px) {
+      .stats { gap: 0.8rem; }
+      .stat-card { flex: 1 1 100%; }
+    }
+  </style>
     <!-- <link rel="stylesheet" href="styling footer/footer.css" /> -->
   </head>
   <body>
 
-    <div class="container-content-1">
-      <a href="https://youtube.com/deaafrizal" class="a-gambar-1">
-        <img src="image/download.jpg" class="gambar-1" />
-        <p>YANG INI TES JUGA SIH</p>
-      </a>
+    <div class="container-content-2">
+      <div class="about-hero">
+        <div class="about-right">
+          <h1>About Holy Map</h1>
+          <p class="about-text">Holy Map adalah sebuah aplikasi web yang dibuat untuk membantu pengguna menemukan lokasi rumah ibadah dengan cepat. Proyek ini dikembangkan sebagai tugas besar oleh tim kami untuk mempraktikkan konsep pemetaan (GIS) dan pengembangan web. Kami mengumpulkan data lokasi, menampilkan marker dinamis, dan menyediakan antarmuka yang sederhana agar semua pengguna dapat mengakses informasi secara mudah.</p>
+          <p class="about-text">Fitur utama meliputi pencarian lokasi, tampilan peta interaktif, dan detail singkat tentang setiap tempat ibadah. Kami juga berencana menambahkan filter kategori dan fitur komunitas pada versi berikutnya.</p>
+          <!-- Statistics section -->
+          <section class="stats" aria-label="Statistik Aplikasi">
+            <div class="stat-card">
+              <div class="stat-icon" aria-hidden="true">🏠</div>
+              <div>
+                <div class="stat-info">128</div>
+                <div class="stat-label">Jumlah Gereja Terdata</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" aria-hidden="true">📍</div>
+              <div>
+                <div class="stat-info">7 Kecamatan</div>
+                <div class="stat-label">Wilayah Tercakup</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" aria-hidden="true">👥</div>
+              <div>
+                <div class="stat-info">312</div>
+                <div class="stat-label">Pengguna Aktif</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" aria-hidden="true">⚙️</div>
+              <div>
+                <div class="stat-info">1.0 Beta</div>
+                <div class="stat-label">Versi Aplikasi</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Regions distribution -->
+          <section class="regions" aria-labelledby="regions-title">
+            <h3 id="regions-title">Sebaran Gereja per Wilayah</h3>
+            <table>
+              <tbody>
+                <tr><td>Palu Timur</td><td>22 Gereja</td></tr>
+                <tr><td>Palu Selatan</td><td>18 Gereja</td></tr>
+                <tr><td>Palu Barat</td><td>25 Gereja</td></tr>
+                <tr><td>Palu Utara</td><td>16 Gereja</td></tr>
+                <tr><td>Tatanga</td><td>11 Gereja</td></tr>
+                <tr><td>Mantikulore</td><td>21 Gereja</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Social / Contact -->
+          <section class="contact" aria-labelledby="contact-title">
+            <h3 id="contact-title">Stay Connected</h3>
+            <div class="social">
+              <a href="https://instagram.com/holymap.id" target="_blank" rel="noopener" aria-label="Instagram">
+                <img src="../image/instagram-icon.png" alt="Instagram" style="width:28px;height:28px;object-fit:contain;" />
+              </a>
+              <a href="https://github.com/holymap" target="_blank" rel="noopener" aria-label="GitHub">
+                <img src="../image/Github icon.png" alt="GitHub" style="width:28px;height:28px;object-fit:contain;" />
+              </a>
+              <a href="mailto:holymap.team@gmail.com" aria-label="Email">
+                <img src="../image/Gmail icon.png" alt="Email" style="width:28px;height:28px;object-fit:contain;" />
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section class="team">
+        <h2>Tim Pengembang</h2>
+        <div class="team-list">
+          <div class="team-member">
+            <img src="../image/Foto Gabriel.jpg" alt="Anggota 1" />
+            <h3>Gabriel Kristofan Supari</h3>
+            <p>Frontend & Backend</p>
+          </div>
+          <div class="team-member">
+            <img src="../image/Foto latifah.jpg" alt="Anggota 2" />
+            <h3>Latifah Putri</h3>
+            <p>Project & Data Management</p>
+          </div>
+          <div class="team-member">
+            <img src="../image/Foto Lionel.jpg" alt="Anggota 3" />
+            <h3>Lionel Geraldo Mansa</h3>
+            <p>Data Management & UI Designer</p>
+          </div>
+        </div>
+      </section>
     </div>
-    <!-- <div class="container-footer">
-      <h1 class="header1">Gabriel Yosafat</h1>
-      <p>Copyright 2024</p>
-    </div> -->
     <script>
       (function(){
         const path = location.pathname.split('/').pop() || 'index.html';

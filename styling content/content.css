@@ -1,9 +1,26 @@
 .container-content-1 {
-  background-color: #f7f7f7;
-  height: 80vh;
+  background-color: #fffafa;
+  background: linear-gradient(to bottom, #fff8f8, #f2f2ff);
+  height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.container-content-1 p {
+  position: absolute;      /* Bisa digeser manual */
+  font-size: 50px;
+  color: black;
+  top: 40%;                /* Geser teks dari atas container */
+  left: 55%; 
+}
+
+.container-content-1 p1 {
+  position: absolute;      /* Bisa digeser manual */
+  font-size: 20px;
+  color: black;
+  top: 55%;                /* Geser teks dari atas container */
+  left: 55%; 
 }
 
 .a-gambar-1 {
@@ -19,8 +36,14 @@
 }
 
 .gambar-1 {
-  width: 50%;
+  width: 40%;
   height: auto;
+  position: relative;
+  bottom: 0%;
+  right: 18%;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+  transition: transform 0.28s ease; /* move transition here for smooth leave */
+  will-change: transform;
 }
 
 /* agar div map punya tinggi terlihat */
@@ -30,5 +53,9 @@
   margin: 20px auto;
   border-radius: 8px;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.06) inset;
+}
+
+img:hover {
+  transform: scale(1.03);
 }
 
