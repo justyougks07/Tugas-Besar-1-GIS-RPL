@@ -59,3 +59,31 @@ img:hover {
   transform: scale(1.03);
 }
 
+/* --- Responsive adjustments (no HTML changes) --- */
+@media (max-width: 900px) {
+  .container-content-1 {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 2rem 1rem;
+  }
+  .container-content-1 p,
+  .container-content-1 p1 {
+    position: static; /* remove absolute positioning on narrow screens */
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 720px;
+    text-align: center;
+    margin: 0.4rem 0;
+  }
+  .container-content-1 p { font-size: 34px; }
+  .container-content-1 p1 { font-size: 16px; }
+  .gambar-1 { width: 70%; max-width: 360px; right: 0; margin-top: 1rem; }
+}
+
+@media (max-width: 420px) {
+  .container-content-1 p { font-size: 26px; }
+  .gambar-1 { width: 85%; }
+}
+

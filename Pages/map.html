@@ -5,29 +5,38 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="image/images.jpg" type="image/png">
+
+  <!-- Style utama yang sudah ada -->
   <link rel="stylesheet" href="styling navbar/navbar.css" />
   <link rel="stylesheet" href="styling content/content.css" />
-  <style>
-    #map { height: 500px; }
-  </style>
-</head>
-<body>
 
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+
+  <!-- CSS khusus halaman peta -->
+  <link rel="stylesheet" href="styling content/contentmap.css" />
+</head>
+
+<body>
+  <!-- Judul halaman -->
   <h2>Peta Lokasi Gereja</h2>
+
+  <!-- Search bar -->
+  <div id="search-container">
+    <input type="text" id="search-input" placeholder="Cari nama gereja..." />
+  </div>
+
+  <!-- Konten utama: peta dan sidebar -->
   <main class="map-page-content" style="padding:20px;">
     <div id="map"></div>
+    <aside id="sidebar"></aside>
   </main>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0; /* keep navbar in same vertical position as other pages */
-      background-color: #f4f4f4;
-    }
-    .map-page-content { max-width: 1200px; margin: 0 auto; }
-    h2 { text-align: center; margin-top: 0.8rem; }
-    #map { margin: 0 auto; border: 2px solid #ccc; border-radius: 10px; width: 90vw; height: 80vh; }
-  </style>
+
+  <!-- Script highlight menu aktif -->
   <script>
     (function(){
       const path = location.pathname.split('/').pop() || 'index.html';
@@ -40,5 +49,42 @@
       });
     })();
   </script>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+  // Konfigurasi Firebase kamu
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7oTbgV8Z96imaWRlU12uRQkwzsNygpQU",
+    authDomain: "holy-map-30e51.firebaseapp.com",
+    databaseURL: "https://holy-map-30e51-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "holy-map-30e51",
+    storageBucket: "holy-map-30e51.firebasestorage.app",
+    messagingSenderId: "27876185905",
+    appId: "1:27876185905:web:27680710cd10e4c4fb0210",
+    measurementId: "G-JRFES19KKT"
+  };
+
+  // Inisialisasi Firebase & Database
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Simpan objek db di window agar bisa diakses dari map.js
+  window.db = db;
+  window.firebaseRef = ref;
+  window.firebaseOnValue = onValue;
+</script>
+
+<!-- Map logic -->
+<script src="js/map.js" type="module"></script>
+
 </body>
 </html>

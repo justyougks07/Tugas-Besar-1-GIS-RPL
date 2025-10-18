@@ -31,4 +31,16 @@
   .about-left { order: -1; }
   .team-list { flex-direction: column; }
   .team-member { width: 100%; }
+  /* make stats flow vertically on mobile */
+  .stats { flex-direction: column; gap: 0.8rem; }
+  .stat-card { width: 100%; }
+  /* regions table: make rows stack */
+  .regions table, .regions tbody, .regions tr { display: block; width: 100%; }
+  .regions td { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #f0f0f0; }
+}
+
+@media (max-width: 420px) {
+  .about-right h1 { font-size: 1.6rem; }
+  .about-text { font-size: 14px; }
+  .team-member img { height: auto; }
 }
