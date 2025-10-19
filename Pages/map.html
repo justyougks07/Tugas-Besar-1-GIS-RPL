@@ -32,7 +32,12 @@
     </aside>
   </main>
   <style>
-    #map{ width:100%; height:70vh; max-width:1200px; margin:0 auto; border-radius:8px; border:1px solid #ddd; }
+  #map{ width:100%; height:70vh; max-width:1200px; margin:0 auto; border-radius:8px; border:1px solid #ddd; z-index:1 }
+  .map-page-content{ overflow: visible }
+  /* global sidebar style: left-positioned with improved appearance */
+  #global-sidebar{ position:fixed !important; left:0 !important; top:84px !important; width:360px !important; max-width:92vw !important; height:calc(100vh - 100px) !important; background:#fff !important; box-shadow:8px 0 24px rgba(0,0,0,0.12) !important; padding:16px !important; box-sizing:border-box !important; transform:translateX(-110%) !important; transition:transform .28s ease !important; z-index:400000 !important; overflow:auto !important; display:none !important; border-radius:0 8px 8px 0 !important }
+  #global-sidebar.open{ transform:translateX(0) !important; display:block !important }
+  @media(max-width:900px){ #global-sidebar{ top:72px; width:100%; height:45vh; transform:translateY(110%); left:0; right:0 } #global-sidebar.open{ transform:translateY(0) } }
   #search-container{ max-width:1200px; margin:12px auto; padding:0 20px; position:relative }
   .search-box{ display:flex; gap:8px; align-items:center }
   #search-container input{ flex:1; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px }
@@ -43,9 +48,21 @@
   #search-suggestions li{ padding:8px; border-radius:6px; cursor:pointer }
   #search-suggestions li[aria-selected="true"], #search-suggestions li:hover{ background:#f1f5fb }
     /* sidebar */
-    #sidebar{ position:fixed; right:0; top:84px; width:360px; max-width:92vw; height:calc(100vh - 100px); background:#fff; box-shadow:-8px 0 24px rgba(0,0,0,0.12); padding:16px; box-sizing:border-box; transform:translateX(110%); transition:transform .28s ease; z-index:9999; overflow:auto }
-    #sidebar.open{ transform:translateX(0); }
-    #close-sidebar{ position:absolute; left:8px; top:8px; border:none; background:transparent; font-size:22px; cursor:pointer }
+
+      /* style the original #sidebar to appear from the LEFT and look nicer
+         - moved a bit inward and made slightly shorter on desktop so it
+           doesn't overlap the search bar */
+  /* shorter and lower so it doesn't overlap the search bar
+     with fade animation (opacity) on open/close */
+  #sidebar{ position:fixed; left:300px; top:250px; width:320px; max-width:92vw; height:calc(90vh - 200px); background:#fff; box-shadow:8px 0 24px rgba(0,0,0,0.12); padding:18px; box-sizing:border-box; transform:translateX(-110%); opacity:0; transition:transform .28s ease, opacity .28s ease; z-index:200000; overflow:auto; border-radius:0 10px 10px 0 }
+    #sidebar.open{ transform:translateX(0); opacity:1 }
+    /* small rounded close button in header */
+    #close-sidebar{ position:absolute; right:12px; top:12px; border:none; background:rgba(0,0,0,0.06); width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-size:18px; cursor:pointer; color:#222 }
+    #close-sidebar:hover{ background:rgba(0,0,0,0.12) }
+    /* sidebar content styles */
+    #sidebar img{ width:100%; height:170px; object-fit:cover; border-radius:6px; display:block; margin-bottom:12px }
+    #sidebar h3{ margin:8px 0 6px 0; font-size:18px }
+    #sidebar p{ margin:6px 0; color:#222; line-height:1.35 }
     @media(max-width:900px){ #sidebar{ top:72px; width:100%; height:45vh; transform:translateY(110%); left:0; right:0 } #sidebar.open{ transform:translateY(0) } }
   </style>
 
@@ -75,14 +92,20 @@
       }
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:19, attribution:'&copy; OpenStreetMap contributors' }).addTo(map);
 
+      // quick guard: ensure churches array exists so code below doesn't fail silently
+      if(!Array.isArray(churches) || churches.length===0){
+        console.warn('No churches data available to render markers');
+      }
       const markers = {};
-      churches.forEach(ch => {
+      // pre-create global sidebar so it exists in the DOM (prevents race conditions)
+      try{ getGlobalSidebar(); }catch(e){ console.warn('pre-create global sidebar failed', e); }
+      (Array.isArray(churches) ? churches : []).forEach(ch => {
         const marker = L.marker([ch.lat,ch.lng]).addTo(map);
         const popupHtml = `<div style="min-width:180px"><strong>${ch.name}</strong><br><small>${ch.street}</small><br><a href="#">Lihat detail</a></div>`;
         marker.bindPopup(popupHtml);
         marker.on('mouseover', function(){ this.openPopup(); });
         marker.on('mouseout', function(){ this.closePopup(); });
-        marker.on('click', function(){ openSidebar(ch); });
+        marker.on('click', function(){ try{ if(window.openSidebar) return window.openSidebar(ch); return openSidebar(ch); }catch(e){ console.warn('marker click -> openSidebar failed', e); } });
         markers[ch.id]=marker;
       });
 
@@ -97,12 +120,80 @@
       input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); simpleSearch(); } });
       if(searchBtn) searchBtn.addEventListener('click', ()=>{ simpleSearch(); input.focus(); });
 
-      // sidebar
-      const sidebar = document.getElementById('sidebar');
-      const sidebarContent = document.getElementById('sidebar');
-      function openSidebar(ch){ const content=document.getElementById('sidebar-content') || (()=>{ const d=document.createElement('div'); d.id='sidebar-content'; sidebar.appendChild(d); return d })(); content.innerHTML=`<h3>${ch.name}</h3><p><strong>Alamat:</strong> ${ch.street}</p><p><strong>Jadwal:</strong> ${ch.schedule}</p><p><a href='${ch.link}' target='_blank'>Lihat halaman</a></p>`; sidebar.classList.add('open'); sidebar.setAttribute('aria-hidden','false'); }
-      function closeSidebar(){ sidebar.classList.remove('open'); sidebar.setAttribute('aria-hidden','true'); }
+      // sidebar: use a global body-attached sidebar to avoid clipping by map containers
+      const localSidebar = document.getElementById('sidebar');
+
+      function getGlobalSidebar(){
+        let g = document.getElementById('global-sidebar');
+        if (g) return g;
+        // clone structure into a body-level sidebar
+        g = document.createElement('aside');
+        g.id = 'global-sidebar';
+        g.setAttribute('aria-hidden','true');
+  // rely on CSS rules added to the page for layout; keep inline display off by default
+  g.style.display = 'none';
+        // close button
+        const btn = document.createElement('button');
+        btn.id = 'global-close-sidebar';
+        btn.setAttribute('aria-label','Tutup');
+        btn.textContent = '×';
+        btn.style.position = 'absolute';
+        btn.style.left = '8px';
+        btn.style.top = '8px';
+        btn.style.border = 'none';
+        btn.style.background = 'transparent';
+        btn.style.fontSize = '22px';
+        btn.style.cursor = 'pointer';
+        g.appendChild(btn);
+        const content = document.createElement('div');
+        content.id = 'global-sidebar-content';
+        g.appendChild(content);
+        document.body.appendChild(g);
+        btn.addEventListener('click', ()=>{ closeSidebar(); });
+        return g;
+      }
+      // expose helper globally so SPA/injected contexts can call it
+      try{ window.getGlobalSidebar = getGlobalSidebar; }catch(e){}
+
+      function openSidebar(ch){
+        const s = document.getElementById('sidebar');
+        const content = document.getElementById('sidebar-content');
+        // populate
+        content.innerHTML = `<img src="${ch.foto || ''}" onerror="this.onerror=null;this.src='image/Gereja.png'" alt="${ch.name}"><h3>${ch.name}</h3><p>${ch.schedule || ch.jadwal || ''}</p><p><b>Alamat:</b> ${ch.street || ch.alamat || '-'}</p>`;
+        // show
+        try{ s.style.display='block'; s.classList.add('open'); s.setAttribute('aria-hidden','false'); s.style.zIndex='200001'; }catch(e){ console.warn('openSidebar local failed', e); }
+        console.log('openSidebar called for', ch.name);
+      }
+  // expose openSidebar globally as well (defensive for SPA scope issues)
+  try{ window.openSidebar = openSidebar; }catch(e){}
+
+      function closeSidebar(){
+        const g = document.getElementById('global-sidebar');
+        if (g){ g.classList.remove('open'); g.setAttribute('aria-hidden','true'); setTimeout(()=>{ try{ g.style.display='none'; }catch(e){} }, 320); }
+        try{ localSidebar.classList.remove('open'); localSidebar.setAttribute('aria-hidden','true'); localSidebar.style.display='none'; }catch(e){}
+      }
+
       document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+
+      // --- TEMPORARY TESTS (remove later) ---
+      // 1) briefly show a demo using the local #sidebar so desktop users see it
+      try{
+        const demoEl = document.getElementById('sidebar');
+        const demoContent = document.getElementById('sidebar-content');
+        if(demoContent){ demoContent.innerHTML = `<h3>Demo Sidebar</h3><p>Jika Anda melihat ini, sidebar dapat muncul di desktop.</p>`; }
+        demoEl.style.display = 'block'; demoEl.classList.add('open'); demoEl.setAttribute('aria-hidden','false');
+        setTimeout(()=>{ try{ demoEl.classList.remove('open'); demoEl.style.display='none'; }catch(e){} }, 2200);
+      }catch(e){ console.warn('demo sidebar test failed', e); }
+
+      // 2) simulate clicking the first marker (if any) to verify openSidebar works
+      try{
+        if(Array.isArray(churches) && churches.length>0){
+          setTimeout(()=>{
+            try{ openSidebar(churches[0]); }catch(e){ console.warn('simulated openSidebar failed', e); }
+          }, 600);
+        }
+      }catch(e){ console.warn('simulate click test failed', e); }
+      // --- end TEMPORARY TESTS ---
     }
 
     // Try to ensure Leaflet is available: if not, dynamically load CSS+JS with fallback

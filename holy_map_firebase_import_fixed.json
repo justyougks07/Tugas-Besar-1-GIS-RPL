@@ -1,0 +1,372 @@
+
+{
+  "gereja": {
+    "G001": {
+      "nama": "GPID Palu Manunggal",
+      "alamat": "Jl. Towua, Tatura Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 06:00 - 07:00",
+        "1": "Ibadah Raya 2 : 09:00 - 10:00",
+        "2": "Ibadah Raya 3 : 18:00 - 19:00",
+        "3": "Ibadah Pemuda : Jumat (18:00 - 19:30)",
+        "4": "Ibadah Remaja : Sabtu (18:00 - 20:00)"
+      },
+      "lat": -0.9198713,
+      "lng": 119.8779396
+    },
+    "G002": {
+      "nama": "GBI IPK",
+      "alamat": "Jl. Towua Lrg. Sintuvu, Tinggede",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 08:00 - 09:00",
+        "1": "Ibadah Raya 2 : 10:00 - 11:00",
+        "2": "Ibadah Raya 3 : 19:00 - 20:00",
+        "3": "Ibadah Pemuda : Jumat (19:00 - 20:00)",
+        "4": "Ibadah Remaja : Selasa (19:00 - 20:00)"
+      },
+      "lat": -0.9265596,
+      "lng": 119.8788173
+    },
+    "G003": {
+      "nama": "GBI Ecclesia Palu",
+      "alamat": "Jl. Towua Lrg. Sintuvu, Tinggede",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 11:00",
+        "1": "Ibadah Raya 2 : 19:00(Youth)"
+      },
+      "lat": -0.9264359,
+      "lng": 119.8799787
+    },
+    "G004": {
+      "nama": "GBI Mahanaim Palu",
+      "alamat": "Jl. Towua II, Tatura Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 08:00 - 11:00",
+        "1": "Ibadah Raya 2 : 18:00 - 21:00"
+      },
+      "lat": -0.9248717,
+      "lng": 119.883246
+    },
+    "G005": {
+      "nama": "Gereja Yesus Hidup Sejati (YHS) Palu",
+      "alamat": "Jl. Zebra, Tatura Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:30 - 11:30",
+        "1": "Ibadah Raya 2 : 19:00 - 21:00"
+      },
+      "lat": -0.9215894,
+      "lng": 119.883536
+    },
+    "G006": {
+      "nama": "Gereja Toraja Mamasa Jemaat Filadelfia Palu",
+      "alamat": "Jl. Zebra, Tatura Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00"
+      },
+      "lat": -0.9268881,
+      "lng": 119.8843041
+    },
+    "G007": {
+      "nama": "GSJA Gibeon Palu",
+      "alamat": "Jl. Zebra, Tatura Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00",
+        "1": "Ibadah Raya 2 : 16:00",
+        "2": "Ibadah Remaja : G - Youth Jumat (19:00)"
+      },
+      "lat": -0.9258743,
+      "lng": 119.8843514
+    },
+    "G008": {
+      "nama": "GPdI Torsina Palu",
+      "alamat": "Jl. Zebra VI, Birobuli Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00",
+        "1": "Ibadah Raya 2 : 18:00",
+        "2": "Ibadah Pemuda : Jumat (18:30)",
+        "3": "Ibadah Remaja : Rabu (15:30)",
+        "4": "Ibadah Bapak : Kamis (18:00)",
+        "5": "Ibadah Ibu : Kamis (18:00)"
+      },
+      "lat": -0.9266813,
+      "lng": 119.8878302
+    },
+    "G009": {
+      "nama": "GPID Koinonia Palu",
+      "alamat": "Jl. Tangkasi, Birobuli Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00 - 10:00",
+        "1": "Ibadah Raya 2 : 17:00 - 18:00",
+        "2": "Ibadah Pemuda : Kamis (19:00 - 20:00)"
+      },
+      "lat": -0.9287778,
+      "lng": 119.8887787
+    },
+    "G010": {
+      "nama": "GKST Jemaat Effata Palu",
+      "alamat": "Jl. Banteng, Birobuli Selatan, Selasa (17:00)",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 06:00",
+        "1": "Ibadah Raya 2 : 09:00",
+        "2": "Ibadah Raya 3 : 15:30",
+        "3": "Ibadah Raya 4 : 18:00",
+        "4": "Ibadah Pemuda : Jumat (19:00)",
+        "5": "Ibadah Bapak : Jumat (17:00)"
+      },
+      "lat": -0.9307134,
+      "lng": 119.8865505
+    },
+    "G011": {
+      "nama": "GKST Anugrah Masomba",
+      "alamat": "Jl. Tj. Manimbaya IV No.10, Tatura Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 06:00 - 07:30",
+        "1": "Ibadah Raya 2 : 09:00 - 10:30",
+        "2": "Ibadah Raya 3 : 17:00 - 18:30",
+        "3": "Ibadah Pemuda : Jumat (19:00)",
+        "4": "Ibadah Bapak : Selasa (18:30)"
+      },
+      "lat": -0.9090577,
+      "lng": 119.8818295
+    },
+    "G012": {
+      "nama": "Gereja Toraja Moria Palu",
+      "alamat": "Jl. Tj. Harapan No.13, Tatura Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 06:00 - 07:30",
+        "1": "Ibadah Raya 2 : 09:00 - 10:30",
+        "2": "Ibadah Raya 3 : 17:00 - 18:30"
+      },
+      "lat": -0.9101469,
+      "lng": 119.8843746
+    },
+    "G013": {
+      "nama": "Gereja Toraja Jemaat Sion Anutapura Palu",
+      "alamat": "Jalan Purnawirawan 2 No. 19, Tatura Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 06:00",
+        "1": "Ibadah Raya 2 : 09:00",
+        "2": "Ibadah Raya 3 : 17:00"
+      },
+      "lat": -0.9161288,
+      "lng": 119.8785766
+    },
+    "G014": {
+      "nama": "Gereja Bala Keselamatan Korps Towua",
+      "alamat": "Jl. Towua No.80, Tatura Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 06:00 - 08:00",
+        "1": "Ibadah Raya 2 : 16:30 - 18:30",
+        "2": "Ibadah Raya 3 : 18:30 - 20:30",
+        "3": "Ibadah Remaja : Youth Ministry: Jumat (18:30)",
+        "4": "Ibadah Bapak : Selasa (17:30)",
+        "5": "Ibadah Ibu : Selasa (17:30)"
+      },
+      "lat": -0.9242599,
+      "lng": 119.8796679
+    },
+    "G015": {
+      "nama": "GSJA Kalvari",
+      "alamat": "Jl. Tanjung Manimbaya No.114,, Tatura Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00 - 11:00",
+        "1": "Ibadah Raya 2 : 18:00 - 19:30",
+        "2": "Ibadah Pemuda : Sabtu (19:00)",
+        "3": "Ibadah Remaja : Sabtu (19:00)"
+      },
+      "lat": -0.9085006,
+      "lng": 119.8818888
+    },
+    "G016": {
+      "nama": "Gereja GPID Jemaat Sola Gratia Palu",
+      "alamat": "Jl. Tanjung Manimbaya No.168, Tatura Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00 - 11:00",
+        "1": "Ibadah Raya 2 : 18:00 - 20:00"
+      },
+      "lat": -0.9089964,
+      "lng": 119.8884005
+    },
+    "G017": {
+      "nama": "Huria Kristen Batak Protestan (HKBP) Palu",
+      "alamat": "JL Gereja No.36, Tatura Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 07:30 - 09:00",
+        "1": "Ibadah Raya 2 : 10:00 - 11:30",
+        "2": "Ibadah Pemuda : Kamis (19:00)",
+        "3": "Ibadah Remaja : Sabtu (18:00)",
+        "4": "Ibadah Bapak : Ama: Kamis (19:00)"
+      },
+      "lat": -0.9108465,
+      "lng": 119.885035
+    },
+    "G018": {
+      "nama": "Gereja KIBAID Jemaat Palu",
+      "alamat": "Jl. Gereja No.13,, Tatura Utara",
+      "lat": -0.9092947,
+      "lng": 119.885195
+    },
+    "G019": {
+      "nama": "Gereja Bala Keselamatan Korps Woodward",
+      "alamat": "Jl. Woodward, Lolu Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 07:00",
+        "1": "Ibadah Raya 2 : 18:00"
+      },
+      "lat": -0.9048261,
+      "lng": 119.8723442
+    },
+    "G020": {
+      "nama": "GBI FOCC Palu",
+      "alamat": "Jl. Woodward No.12, Lolu Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 08:00",
+        "1": "Ibadah Raya 2 : 10:00",
+        "2": "Ibadah Raya 3 : 17:00",
+        "3": "Ibadah Raya 4 : (NXG) 19:00",
+        "4": "Ibadah Pemuda : Selasa (19:00)"
+      },
+      "lat": -0.9046061,
+      "lng": 119.8734258
+    },
+    "G021": {
+      "nama": "GPdI PEDATI",
+      "alamat": "Jl. Patimura, Lolu Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 07:00",
+        "1": "Ibadah Raya 2 : 09:00",
+        "2": "Ibadah Raya 3 : 18:00"
+      },
+      "lat": -0.9029424,
+      "lng": 119.8695185
+    },
+    "G022": {
+      "nama": "GKI Palu",
+      "alamat": "Jl. Patimura, Lolu Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 07:00",
+        "1": "Ibadah Raya 2 : 17:00",
+        "2": "Ibadah Raya 3 : 19:00",
+        "3": "Ibadah Remaja : Minggu (17:00)"
+      },
+      "lat": -0.9027583,
+      "lng": 119.8698433
+    },
+    "G023": {
+      "nama": "GKST Imanuel Palu",
+      "alamat": "Jl. Patimura, Nunu",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 06:00",
+        "1": "Ibadah Raya 2 : 08:00",
+        "2": "Ibadah Raya 3 : 16:30",
+        "3": "Ibadah Raya 4 : 19:00"
+      },
+      "lat": -0.9026058,
+      "lng": 119.868284
+    },
+    "G024": {
+      "nama": "Gereja Betania Fresh Anointing (BFA) Palu",
+      "alamat": "Jl. Patimura, Lolu Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 10:00"
+      },
+      "lat": -0.9023718,
+      "lng": 119.869781
+    },
+    "G025": {
+      "nama": "Gereja ZION",
+      "alamat": "Jl. Patimura, Lolu Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 08:00 - 09:00",
+        "1": "Ibadah Raya 2 : 10:00 - 11:00",
+        "2": "Ibadah Pemuda : Jumat (19:00)",
+        "3": "Ibadah Bapak : Jumat (19:00)",
+        "4": "Ibadah Ibu : Jumat (19:00)"
+      },
+      "lat": -0.9013933,
+      "lng": 119.8686474
+    },
+    "G026": {
+      "nama": "GPT Petra Palu",
+      "alamat": "Jl. Patimura, Lolu Selatan, Selasa (16:00 - 18:00)",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00 - 11:00",
+        "1": "Ibadah Raya 2 : 18:00 - 20:00",
+        "2": "Ibadah Pemuda : Sabtu (19:00 - 21:00)"
+      },
+      "lat": -0.9011693,
+      "lng": 119.8693663
+    },
+    "G027": {
+      "nama": "Gereja Advent jemaat Maesa",
+      "alamat": "Jl. Sulawesi, Lolu Utara",
+      "lat": -0.9000925,
+      "lng": 119.8700609
+    },
+    "G028": {
+      "nama": "GKT Trinity Palu",
+      "alamat": "Jl. Sulawesi, Lolu Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 10:00",
+        "1": "Ibadah Pemuda : Sabtu (18:30)",
+        "2": "Ibadah Remaja : Sabtu (18:30)"
+      },
+      "lat": -0.9005129,
+      "lng": 119.8721169
+    },
+    "G029": {
+      "nama": "Dome of Bethany",
+      "alamat": "Jl. Sulawesi, Lolu Utara",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 08:00",
+        "1": "Ibadah Raya 2 : 10:00",
+        "2": "Ibadah Raya 3 : 17:00",
+        "3": "Ibadah Raya 4 : 19:00"
+      },
+      "lat": -0.9003302,
+      "lng": 119.8708428
+    },
+    "G030": {
+      "nama": "GPID Jemaat Getsemani Maesa Palu",
+      "alamat": "Jl. Patimura, Lolu Utara",
+      "lat": -0.8995562,
+      "lng": 119.8686571
+    },
+    "G031": {
+      "nama": "GMS Palu",
+      "alamat": "Jl. H. Hayun, Besusu Barat",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 08:30",
+        "1": "Ibadah Raya 2 : 11:00",
+        "2": "Ibadah Raya 3 : 16:30",
+        "3": "Ibadah Pemuda : Minggu (14:00)",
+        "4": "Ibadah Remaja : Sabtu (16:00)"
+      },
+      "lat": -0.8918991,
+      "lng": 119.8676211
+    },
+    "G032": {
+      "nama": "Gereja Isa - Almasih",
+      "alamat": "Jl. Banteng, Birobuli Selatan",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 09:00",
+        "1": "Ibadah Pemuda : Jumat (19:30)",
+        "2": "Ibadah Remaja : Jumat (19:30)"
+      },
+      "lat": -0.9313085,
+      "lng": 119.8865941
+    },
+    "G033": {
+      "nama": "Home Church Community (HCC)",
+      "alamat": "Jl. Dewi Sartika, Kalukubula, Jumat (17:00)",
+      "jadwal": {
+        "0": "Ibadah Raya 1 : 07:15",
+        "1": "Ibadah Raya 2 : 11:00",
+        "2": "Ibadah Raya 3 : 18:00",
+        "3": "Ibadah Pemuda : Jumat (18:30)"
+      },
+      "lat": -0.9413131,
+      "lng": 119.9016711
+    }
+  }
+}

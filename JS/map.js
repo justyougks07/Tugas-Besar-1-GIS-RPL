@@ -8,6 +8,40 @@ let searchInput = null;
 let markers = [];
 let gerejaList = [];
 
+// create or return a global body-level sidebar to avoid clipping issues
+function ensureGlobalSidebar(){
+  let g = document.getElementById('global-sidebar');
+  if(g) return g;
+  g = document.createElement('aside');
+  g.id = 'global-sidebar';
+  g.style.position = 'fixed';
+  g.style.left = '0';
+  g.style.top = '84px';
+  g.style.width = '360px';
+  g.style.maxWidth = '92vw';
+  g.style.height = 'calc(100vh - 100px)';
+  g.style.background = '#fff';
+  g.style.boxShadow = '8px 0 24px rgba(0,0,0,0.12)';
+  g.style.padding = '16px';
+  g.style.boxSizing = 'border-box';
+  g.style.transform = 'translateX(-110%)';
+  g.style.transition = 'transform .28s ease';
+  g.style.zIndex = '400000';
+  g.style.overflow = 'auto';
+  g.style.display = 'none';
+  const btn = document.createElement('button');
+  btn.id = 'global-sidebar-close'; btn.textContent = '×';
+  btn.style.position = 'absolute'; btn.style.right='8px'; btn.style.top='8px'; btn.style.border='none'; btn.style.background='transparent'; btn.style.fontSize='22px'; btn.style.cursor='pointer';
+  const content = document.createElement('div'); content.id = 'global-sidebar-content';
+  g.appendChild(btn);
+  g.appendChild(content);
+  document.body.appendChild(g);
+  btn.addEventListener('click', ()=>{ try{ g.classList.remove('open'); g.style.transform='translateX(-110%)'; setTimeout(()=>{ g.style.display='none'; },320); }catch(e){} });
+  // expose globally for other scripts
+  try{ window.openSidebar = (d)=>{ showSidebar(d); }; window.getGlobalSidebar = ()=>document.getElementById('global-sidebar'); }catch(e){}
+  return g;
+}
+
 function createMap() {
   map = L.map("map").setView([-0.905, 119.870], 13);
 
@@ -57,7 +91,7 @@ function loadGerejaData() {
         { direction: "top" }
       );
 
-      marker.on("click", () => showSidebar(g));
+      marker.on("click", () => { console.log('marker clicked ->', g.nama || g.id); try{ showSidebar(g); }catch(e){ console.warn('showSidebar failed', e); } });
       markers.push({ marker, data: g });
     });
   });
@@ -65,13 +99,26 @@ function loadGerejaData() {
 
 function showSidebar(g) {
   if (!sidebar) return;
+  // defensive: prefer alamat but accept other field names
+  const alamat = g.alamat || g.street || g.address || g.kecamatan || "-";
+  const jadwal = g.jadwal || g.schedule || "Jadwal tidak tersedia";
   sidebar.innerHTML = `
-    <img src="${g.foto}" alt="${g.nama}">
-    <h3>${g.nama}</h3>
-    <p>${g.jadwal || "Jadwal tidak tersedia"}</p>
-    <p><b>Alamat:</b> ${g.alamat || "-"}</p>
+    <div style="max-width:100%">
+      <img src="${g.foto || ''}" onerror="this.onerror=null;this.src='image/Gereja.png';" alt="${g.nama}" style="width:100%;height:auto;border-radius:6px;display:block;margin-bottom:12px;">
+      <h3 style="margin:6px 0">${g.nama}</h3>
+      <p style="margin:6px 0">${jadwal}</p>
+      <p style="margin:6px 0"><b>Alamat:</b> ${alamat}</p>
+    </div>
   `;
+  // ensure visible on desktop: add open class and defensive inline styles
   sidebar.style.display = "block";
+  try{
+    sidebar.classList.add('open');
+    sidebar.setAttribute('aria-hidden','false');
+    sidebar.style.transform = 'translateX(0)';
+    sidebar.style.zIndex = '400000';
+    sidebar.style.right = '0px';
+  }catch(e){ console.warn('apply sidebar styles failed', e); }
 }
 
 function attachSearch() {
@@ -132,7 +179,11 @@ export async function initMap() {
     return;
   }
 
-  sidebar = document.getElementById("sidebar");
+  // prefer a global body-level sidebar to avoid clipping; fallback to local #sidebar
+  sidebar = document.getElementById('global-sidebar') || document.getElementById("sidebar");
+  if(!sidebar){
+    try{ sidebar = ensureGlobalSidebar(); }catch(e){ console.warn('ensureGlobalSidebar failed', e); sidebar = document.getElementById("sidebar"); }
+  }
   searchInput = document.getElementById("search-input");
 
   createMap();
