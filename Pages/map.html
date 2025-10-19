@@ -3,88 +3,129 @@
 <head>
   <title>Pemetaan Gereja</title>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="image/images.jpg" type="image/png">
 
-  <!-- Style utama yang sudah ada -->
   <link rel="stylesheet" href="styling navbar/navbar.css" />
   <link rel="stylesheet" href="styling content/content.css" />
-
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    crossorigin=""
-  />
-
-  <!-- CSS khusus halaman peta -->
   <link rel="stylesheet" href="styling content/contentmap.css" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 </head>
 
 <body>
-  <!-- Judul halaman -->
   <h2>Peta Lokasi Gereja</h2>
 
-  <!-- Search bar -->
   <div id="search-container">
-    <input type="text" id="search-input" placeholder="Cari nama gereja..." />
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Cari nama gereja..." autocomplete="off" aria-label="Cari gereja" />
+      <button id="search-btn" aria-label="Cari">Cari</button>
+    </div>
   </div>
+      <!-- Removed suggestions dropdown -->
 
-  <!-- Konten utama: peta dan sidebar -->
   <main class="map-page-content" style="padding:20px;">
     <div id="map"></div>
-    <aside id="sidebar"></aside>
+    <aside id="sidebar" aria-hidden="true">
+      <button id="close-sidebar" aria-label="Tutup">×</button>
+      <div id="sidebar-content"></div>
+    </aside>
   </main>
-
-  <!-- Script highlight menu aktif -->
-  <script>
-    (function(){
-      const path = location.pathname.split('/').pop() || 'index.html';
-      const links = document.querySelectorAll('.nav-list .a-navbar');
-      links.forEach(a => {
-        const href = a.getAttribute('href');
-        if ((href === '#' && path === 'index.html') || href === path) {
-          a.parentElement.classList.add('active');
-        }
-      });
-    })();
-  </script>
+  <style>
+    #map{ width:100%; height:70vh; max-width:1200px; margin:0 auto; border-radius:8px; border:1px solid #ddd; }
+  #search-container{ max-width:1200px; margin:12px auto; padding:0 20px; position:relative }
+  .search-box{ display:flex; gap:8px; align-items:center }
+  #search-container input{ flex:1; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px }
+  #search-container button{ padding:10px 14px; border:none; background:#1976d2; color:#fff; border-radius:6px; cursor:pointer; font-weight:600 }
+  #search-container button:hover{ background:#155fa0 }
+  /* suggestions dropdown */
+  #search-suggestions{ list-style:none; margin:8px 0 0 0; padding:6px; position:absolute; left:20px; right:20px; top:62px; background:#fff; border:1px solid #e6e6e6; border-radius:8px; max-height:260px; overflow:auto; box-shadow:0 6px 20px rgba(0,0,0,0.08); z-index:9998 }
+  #search-suggestions li{ padding:8px; border-radius:6px; cursor:pointer }
+  #search-suggestions li[aria-selected="true"], #search-suggestions li:hover{ background:#f1f5fb }
+    /* sidebar */
+    #sidebar{ position:fixed; right:0; top:84px; width:360px; max-width:92vw; height:calc(100vh - 100px); background:#fff; box-shadow:-8px 0 24px rgba(0,0,0,0.12); padding:16px; box-sizing:border-box; transform:translateX(110%); transition:transform .28s ease; z-index:9999; overflow:auto }
+    #sidebar.open{ transform:translateX(0); }
+    #close-sidebar{ position:absolute; left:8px; top:8px; border:none; background:transparent; font-size:22px; cursor:pointer }
+    @media(max-width:900px){ #sidebar{ top:72px; width:100%; height:45vh; transform:translateY(110%); left:0; right:0 } #sidebar.open{ transform:translateY(0) } }
+  </style>
 
   <!-- Leaflet JS -->
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    crossorigin=""
-  ></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
 
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    function showMapError(msg){
+      const mapEl = document.getElementById('map');
+      mapEl.innerHTML = `<div style="padding:20px;color:#900;background:#fff6f6;border-radius:8px;border:1px solid #f2c2c2;">${msg}</div>`;
+      console.error('Map error:', msg);
+    }
 
-  // Konfigurasi Firebase kamu
-  const firebaseConfig = {
-    apiKey: "AIzaSyB7oTbgV8Z96imaWRlU12uRQkwzsNygpQU",
-    authDomain: "holy-map-30e51.firebaseapp.com",
-    databaseURL: "https://holy-map-30e51-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "holy-map-30e51",
-    storageBucket: "holy-map-30e51.firebasestorage.app",
-    messagingSenderId: "27876185905",
-    appId: "1:27876185905:web:27680710cd10e4c4fb0210",
-    measurementId: "G-JRFES19KKT"
-  };
+    function initMap(){
+      if(typeof L === 'undefined'){
+        showMapError('Leaflet library tidak ditemukan. Pastikan koneksi internet atau file Leaflet dimuat.');
+        return;
+      }
+      const mapEl = document.getElementById('map');
+      let map;
+      try{
+        map = L.map(mapEl).setView([-0.895,119.868],13);
+      }catch(err){
+        showMapError('Gagal menginisialisasi peta: '+ err.message);
+        console.error(err);
+        return;
+      }
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:19, attribution:'&copy; OpenStreetMap contributors' }).addTo(map);
 
-  // Inisialisasi Firebase & Database
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+      const markers = {};
+      churches.forEach(ch => {
+        const marker = L.marker([ch.lat,ch.lng]).addTo(map);
+        const popupHtml = `<div style="min-width:180px"><strong>${ch.name}</strong><br><small>${ch.street}</small><br><a href="#">Lihat detail</a></div>`;
+        marker.bindPopup(popupHtml);
+        marker.on('mouseover', function(){ this.openPopup(); });
+        marker.on('mouseout', function(){ this.closePopup(); });
+        marker.on('click', function(){ openSidebar(ch); });
+        markers[ch.id]=marker;
+      });
 
-  // Simpan objek db di window agar bisa diakses dari map.js
-  window.db = db;
-  window.firebaseRef = ref;
-  window.firebaseOnValue = onValue;
-</script>
+  // resize fix
+      setTimeout(()=>map.invalidateSize(),300);
+      window.addEventListener('resize', ()=> setTimeout(()=>map.invalidateSize(),200));
 
-<!-- Map logic -->
-<script src="js/map.js" type="module"></script>
+      // simple search: find first match on Enter or button click
+      const input = document.getElementById('search-input');
+      const searchBtn = document.getElementById('search-btn');
+      function simpleSearch(){ const q = input.value.trim().toLowerCase(); if(!q) return; const found = churches.find(c => c.name.toLowerCase().includes(q) || c.street.toLowerCase().includes(q)); if(found){ const m = markers[found.id]; if(m){ map.setView(m.getLatLng(),16,{animate:true}); m.openPopup(); } else if(found.lat && found.lng){ map.setView([found.lat, found.lng],16,{animate:true}); } openSidebar(found); } }
+      input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); simpleSearch(); } });
+      if(searchBtn) searchBtn.addEventListener('click', ()=>{ simpleSearch(); input.focus(); });
 
+      // sidebar
+      const sidebar = document.getElementById('sidebar');
+      const sidebarContent = document.getElementById('sidebar');
+      function openSidebar(ch){ const content=document.getElementById('sidebar-content') || (()=>{ const d=document.createElement('div'); d.id='sidebar-content'; sidebar.appendChild(d); return d })(); content.innerHTML=`<h3>${ch.name}</h3><p><strong>Alamat:</strong> ${ch.street}</p><p><strong>Jadwal:</strong> ${ch.schedule}</p><p><a href='${ch.link}' target='_blank'>Lihat halaman</a></p>`; sidebar.classList.add('open'); sidebar.setAttribute('aria-hidden','false'); }
+      function closeSidebar(){ sidebar.classList.remove('open'); sidebar.setAttribute('aria-hidden','true'); }
+      document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+    }
+
+    // Try to ensure Leaflet is available: if not, dynamically load CSS+JS with fallback
+    function loadScript(src, cb){ const s=document.createElement('script'); s.src=src; s.async=true; s.onload=cb; s.onerror=()=>cb(new Error('Failed to load '+src)); document.head.appendChild(s); }
+    function loadCss(href){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; document.head.appendChild(l); }
+
+    function ensureLeaflet(callback){
+      if(typeof L !== 'undefined') return callback();
+      // try primary CDN (already included above may fail) then fallback
+      const cssUrls=['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css','https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css'];
+      const jsUrls=['https://unpkg.com/leaflet@1.9.4/dist/leaflet.js','https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js'];
+      // inject css first
+      loadCss(cssUrls[0]);
+      // try load first script, if fails try fallback
+      loadScript(jsUrls[0], function(err){
+        if(!err && typeof L !== 'undefined') return callback();
+        console.warn('Primary Leaflet load failed, trying fallback');
+        loadCss(cssUrls[1]);
+        loadScript(jsUrls[1], function(err2){ if(err2 || typeof L === 'undefined') return callback(new Error('Unable to load Leaflet from CDNs')); return callback(); });
+      });
+    }
+
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ()=> ensureLeaflet((err)=>{ if(err){ console.error(err); document.getElementById('map').innerHTML='<div style="padding:16px;color:#900;background:#fff6f6;border:1px solid #f2c2c2;border-radius:8px;">Gagal memuat library peta. Periksa koneksi atau CDN.</div>'; } else initMap(); })); else ensureLeaflet((err)=>{ if(err){ console.error(err); document.getElementById('map').innerHTML='<div style="padding:16px;color:#900;background:#fff6f6;border:1px solid #f2c2c2;border-radius:8px;">Gagal memuat library peta. Periksa koneksi atau CDN.</div>'; } else initMap(); });
+  </script>
 </body>
 </html>

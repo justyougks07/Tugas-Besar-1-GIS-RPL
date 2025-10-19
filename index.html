@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="Style.css" />
     <link rel="stylesheet" href="styling navbar/navbar.css" />
     <link rel="stylesheet" href="styling content/content.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   </head>
 
   <body>
-    <!-- NAVBAR -->
     <div class="navbar">
       <span class="highlight"></span>
       <ul class="nav-list">
@@ -23,14 +22,34 @@
       </ul>
     </div>
 
-    <!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <div id="content"></div>
 
-<!-- 🔧 Hanya satu pemanggilan script utama, dan jadikan module -->
-<script type="module" src="script.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
 
-<!-- KONTEN AKAN DIMUAT DI SINI -->
-<div id="content"></div>
+    <!-- Firebase Global -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7oTbgV8Z96imaWRlU12uRQkwzsNygpQU",
+    authDomain: "holy-map-30e51.firebaseapp.com",
+    databaseURL: "https://holy-map-30e51-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "holy-map-30e51",
+    storageBucket: "holy-map-30e51.firebasestorage.app",
+    messagingSenderId: "27876185905",
+    appId: "1:27876185905:web:27680710cd10e4c4fb0210",
+    measurementId: "G-JRFES19KKT"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  window.db = db;
+  window.firebaseRef = ref;
+  window.firebaseOnValue = onValue;
+</script>
 
   </body>
 </html>

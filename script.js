@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function loadPage(page) {
     try {
-      const res = await fetch(`pages/${page}.html`);
+  const res = await fetch(`Pages/${page}.html`);
       if (!res.ok) {
         content.innerHTML = "<p>Halaman tidak ditemukan.</p>";
         content.dataset.page = "";
@@ -51,14 +51,34 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function runPageSpecific(page) {
-    if (page === "map") initMap();
-    else {
-      if (mapInstance) {
-        mapInstance.remove();
-        mapInstance = null;
+  if (page === "map") {
+    // Import the map module as an ES module and call its initMap()
+    // after the page HTML has been injected. This avoids race conditions
+    // where the module runs before the DOM elements exist.
+    (async () => {
+      try {
+        // remove any previous marker
+        const existing = document.querySelector('script[data-mapjs]');
+        if (existing) existing.remove();
+
+        // dynamic import - path matches workspace JS folder
+        const mod = await import('./JS/map.js');
+        if (mod && typeof mod.initMap === 'function') {
+          // small delay so styles/layout settle, then init
+          setTimeout(() => mod.initMap(), 60);
+        } else {
+          console.warn('map module loaded but initMap not found');
+        }
+      } catch (e) {
+        console.error('Failed to load map module', e);
       }
-    }
+    })();
+  } else {
+    const existing = document.querySelector('script[data-mapjs]');
+    if (existing) existing.remove();
   }
+}
+
 
   function initMap() {
     const mapDiv = document.getElementById("map");
