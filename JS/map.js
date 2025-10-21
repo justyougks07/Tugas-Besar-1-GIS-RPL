@@ -51,7 +51,7 @@ function createMap() {
 
   // ensure redraws after layout changes
   function ensureMapRenders() {
-    try {
+    try { 
       map.invalidateSize();
       setTimeout(() => map.invalidateSize(), 300);
       setTimeout(() => map.invalidateSize(), 800);
@@ -86,13 +86,31 @@ function loadGerejaData() {
       if (!g.lat || !g.lng) return;
       const marker = L.marker([g.lat, g.lng]).addTo(map);
 
-      marker.bindTooltip(
-        `<img src="${g.foto}" width="80" style="border-radius:5px;"><br><b>${g.nama}</b>`,
-        { direction: "top" }
-      );
+      console.log("DEBUG data gereja:", g);
+      marker.bindPopup(`
+  <div style="text-align:center;">
+    <img src="${g.foto}" width="120" style="border-radius:8px;max-width:100%;" 
+         onerror="console.warn('popup image failed ->', this.src); this.style.display='none';">
+    <br>
+    <b>${g.nama}</b>
+  </div>
+`);
+
 
       marker.on("click", () => { console.log('marker clicked ->', g.nama || g.id); try{ showSidebar(g); }catch(e){ console.warn('showSidebar failed', e); } });
       markers.push({ marker, data: g });
+
+      // --- diagnostic: log foto and try to preload the image to detect problems ---
+      try{
+        console.log('DEBUG: foto field for', g.nama || g.id, '=>', g.foto);
+        if(typeof g.foto === 'string' && g.foto.startsWith('gs://')){
+          console.warn('DEBUG: foto appears to be a Storage path (gs://). This must be resolved via getDownloadURL before use.');
+        }
+        const testImg = new Image();
+        testImg.onload = function(){ console.log('DEBUG: image loaded OK for', g.foto); };
+        testImg.onerror = function(err){ console.warn('DEBUG: image failed to load for', g.foto, err); };
+        testImg.src = g.foto || '';
+      }catch(e){ console.warn('DEBUG: preload failed', e); }
     });
   });
 }
@@ -102,9 +120,12 @@ function showSidebar(g) {
   // defensive: prefer alamat but accept other field names
   const alamat = g.alamat || g.street || g.address || g.kecamatan || "-";
   const jadwal = g.jadwal || g.schedule || "Jadwal tidak tersedia";
+  // Render using only the URL from the database. If the image fails to load
+  // we hide the <img> element and log a warning; do NOT fall back to local files.
+  const imgHtml = g.foto ? `<img src="${g.foto}" alt="${g.nama}" style="width:100%;height:auto;border-radius:6px;display:block;margin-bottom:12px;" onerror="this.style.display='none';console.warn('sidebar image failed', this.src);">` : '';
   sidebar.innerHTML = `
     <div style="max-width:100%">
-      <img src="${g.foto || ''}" onerror="this.onerror=null;this.src='image/Gereja.png';" alt="${g.nama}" style="width:100%;height:auto;border-radius:6px;display:block;margin-bottom:12px;">
+      ${imgHtml}
       <h3 style="margin:6px 0">${g.nama}</h3>
       <p style="margin:6px 0">${jadwal}</p>
       <p style="margin:6px 0"><b>Alamat:</b> ${alamat}</p>
