@@ -65,7 +65,7 @@ img:hover {
     flex-direction: column;
     align-items: center;
     height: auto;
-    padding: 2rem 1rem;
+    padding: 13rem 1rem;
   }
   .container-content-1 p,
   .container-content-1 p1 {
@@ -79,19 +79,6 @@ img:hover {
   }
   .container-content-1 p { font-size: 34px; }
   .container-content-1 p1 { font-size: 16px; }
-  .gambar-1 { width: 70%; max-width: 360px; right: 0; margin-top: 1rem; }
-}
-
-@media (max-width: 420px) {
-  .container-content-1 p { font-size: 26px; }
-  .gambar-1 { width: 85%; }
-}
-
-/* Very small phones adjustments */
-@media (max-width: 360px) {
-  .container-content-1 p { position: relative; top: -40px; font-size: 22px; }
-  .container-content-1 p1 { position: relative; top: -35px; font-size: 14px; }
-  .gambar-1 { position: relative; top: -60px; width: 92%; }
-  .container-content-1 { padding: 8rem 0.6rem; }
+  .gambar-1 { width: 70%; max-width: 360px; right: 0; margin-top: -5rem; }
 }
 
