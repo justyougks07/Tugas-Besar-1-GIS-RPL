@@ -22,7 +22,6 @@
       <button id="search-btn" aria-label="Cari">Cari</button>
     </div>
   </div>
-      <!-- Removed suggestions dropdown -->
 
   <main class="map-page-content" style="padding:20px;">
     <div id="map"></div>
@@ -37,7 +36,6 @@
   /* global sidebar style: left-positioned with improved appearance */
   #global-sidebar{ position:fixed !important; left:0 !important; top:84px !important; width:360px !important; max-width:92vw !important; height:calc(100vh - 100px) !important; background:#fff !important; box-shadow:8px 0 24px rgba(0,0,0,0.12) !important; padding:16px !important; box-sizing:border-box !important; transform:translateX(-110%) !important; transition:transform .28s ease !important; z-index:400000 !important; overflow:auto !important; display:none !important; border-radius:0 8px 8px 0 !important }
   #global-sidebar.open{ transform:translateX(0) !important; display:block !important }
-  @media(max-width:900px){ #global-sidebar{ top:72px; width:100%; height:45vh; transform:translateY(110%); left:0; right:0 } #global-sidebar.open{ transform:translateY(0) } }
   #search-container{ max-width:1200px; margin:12px auto; padding:0 20px; position:relative }
   .search-box{ display:flex; gap:8px; align-items:center }
   #search-container input{ flex:1; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px }
@@ -56,14 +54,11 @@
      with fade animation (opacity) on open/close */
   #sidebar{ position:fixed; left:300px; top:250px; width:320px; max-width:92vw; height:calc(90vh - 200px); background:#fff; box-shadow:8px 0 24px rgba(0,0,0,0.12); padding:18px; box-sizing:border-box; transform:translateX(-110%); opacity:0; transition:transform .28s ease, opacity .28s ease; z-index:200000; overflow:auto; border-radius:0 10px 10px 0 }
     #sidebar.open{ transform:translateX(0); opacity:1 }
-    /* small rounded close button in header */
-    #close-sidebar{ position:absolute; right:12px; top:12px; border:none; background:rgba(0,0,0,0.06); width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-size:18px; cursor:pointer; color:#222 }
-    #close-sidebar:hover{ background:rgba(0,0,0,0.12) }
     /* sidebar content styles */
     #sidebar img{ width:100%; height:170px; object-fit:cover; border-radius:6px; display:block; margin-bottom:12px }
     #sidebar h3{ margin:8px 0 6px 0; font-size:18px }
     #sidebar p{ margin:6px 0; color:#222; line-height:1.35 }
-    @media(max-width:900px){ #sidebar{ top:72px; width:100%; height:45vh; transform:translateY(110%); left:0; right:0 } #sidebar.open{ transform:translateY(0) } }
+    @media(max-width:900px){ #sidebar{ top: 500px; width:55%; height:28vh; transform:translateY(110%); left: 30px; right:0 } #sidebar.open{ transform:translateY(0) } }
   </style>
 
   <!-- Leaflet JS -->

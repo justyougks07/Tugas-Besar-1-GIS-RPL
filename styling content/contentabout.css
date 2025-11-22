@@ -30,10 +30,14 @@
   .about-hero { flex-direction: column; text-align: center; }
   .about-left { order: -1; }
   .team-list { flex-direction: column; }
-  .team-member { width: 100%; }
+  .team-member { width: 90%; }
   /* make stats flow vertically on mobile */
   .stats { flex-direction: column; gap: 0.8rem; }
-  .stat-card { width: 100%; }
+  .stat-card { width: 90%; }
+  .stat-info-1 { text-align: center; padding-right: 108px; }
+  .stat-info-2 { text-align: center; padding-right: 15px; }
+  .stat-info-3 { text-align: center; padding-right: 60px; }
+  .stat-info-4 { text-align: center; padding-right: 20px; }
   /* regions table: make rows stack */
   .regions table, .regions tbody, .regions tr { display: block; width: 100%; }
   .regions td { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #f0f0f0; }

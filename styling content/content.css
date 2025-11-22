@@ -87,3 +87,11 @@ img:hover {
   .gambar-1 { width: 85%; }
 }
 
+/* Very small phones adjustments */
+@media (max-width: 360px) {
+  .container-content-1 p { position: relative; top: -40px; font-size: 22px; }
+  .container-content-1 p1 { position: relative; top: -35px; font-size: 14px; }
+  .gambar-1 { position: relative; top: -60px; width: 92%; }
+  .container-content-1 { padding: 8rem 0.6rem; }
+}
+
